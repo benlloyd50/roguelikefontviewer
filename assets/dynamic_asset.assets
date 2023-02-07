@@ -1,0 +1,14 @@
+({
+    "acorn": File (
+        path: "images/Acorn.png",
+    ),
+    "anikki": File (
+        path: "images/Anikki.png",
+    ),
+    "cgathick": File (
+        path: "images/CGAthick.png",
+    ),
+    "cgathin": File (
+        path: "images/CGAthin.png",
+    ),
+})
