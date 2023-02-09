@@ -7,7 +7,6 @@ edition = "2021"
 bevy = "0.9.1"
 bevy_ascii_terminal = "0.12.3"
 bevy_asset_loader = {version="0.14.1", features=["2d", "stageless", "standard_dynamic_assets"]}
-bevy_ecs_tilemap = { version = "0.9", features = ["atlas"] }
 iyes_loopless = "0.9.1"
 
 # Enable a small amount of optimization in debug mode

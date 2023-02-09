@@ -17,8 +17,6 @@ impl Plugin for AssetLoadPlugin {
     }
 }
 
-pub const FONTS_AMOUNT: u32 = 13;
-
 #[derive(AssetCollection, Resource)]
 pub struct SpriteAssets {
     #[asset(key = "acorn")]
