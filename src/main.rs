@@ -1,8 +1,9 @@
 mod assetload;
-use assetload::{AssetLoadPlugin, SpriteAssets, MAX_FONT_POSITION};
+use assetload::{AssetLoadPlugin, SpriteAssets, FONTS_AMOUNT};
+
+use std::fs;
 
 use bevy::prelude::*;
-use bevy::window::PresentMode;
 use bevy_ascii_terminal::{prelude::*, TerminalFont};
 use iyes_loopless::prelude::*;
 
@@ -20,9 +21,15 @@ fn main() {
         .add_plugin(TerminalPlugin)
         .add_plugin(AssetLoadPlugin)
         .add_enter_system(AppState::GameLoading, setup_game)
+        .add_enter_system(AppState::GameLoading, setup_fonts)
         .add_system(run_game.run_in_state(AppState::GameLoading))
-        .add_system(switch_font.run_in_state(AppState::Running))
-        .add_system(update_font.run_in_state(AppState::Running))
+        .add_system(
+            switch_font
+                .run_in_state(AppState::Running)
+                .label("Input")
+                .before("Display"),
+        )
+        .add_system(update_font.run_in_state(AppState::Running).label("Display"))
         .add_system(bevy::window::close_on_esc)
         .run();
 }
@@ -31,21 +38,7 @@ fn main() {
 struct CurrentFont(u32);
 
 fn setup_game(mut commands: Commands, sprite: Res<SpriteAssets>) {
-    let mut terminal = Terminal::new([80, 50]);
-    terminal.put_string(
-        [0, 1].pivot(Pivot::TopLeft),
-        "Press spacebar/backspace to change fonts",
-    );
-    terminal.put_string(
-        [0, 7].pivot(Pivot::TopLeft),
-        "☺☻♥♦♣♠•'◘'○'◙'♂♀♪♫☼►◄↕‼¶§▬↨↑↓→←∟↔▲▼",
-    );
-    terminal.put_string(
-        [0, 9].pivot(Pivot::TopLeft),
-        "░▒▓│┤╡╢╖╕╣║╗╝╜╛┐└╒╓╫╪┘┌█▄▌▐▀αßΓπΣσµτΦΘΩδ∞",
-    );
-
-    terminal.put_string([5, 5], "☺".fg(Color::GREEN));
+    let terminal = Terminal::new([80, 50]);
     let terminal_entity = commands
         .spawn((TerminalBundle::from(terminal), AutoCamera))
         .id();
@@ -56,20 +49,46 @@ fn setup_game(mut commands: Commands, sprite: Res<SpriteAssets>) {
     commands.spawn(CurrentFont(0));
 }
 
+#[derive(Resource, Debug)]
+struct FontNames {
+    names: Vec<FontInfo>,
+}
+
+#[derive(Debug)]
+struct FontInfo {
+    size: String,
+    name: String,
+}
+
+fn setup_fonts(mut commands: Commands) {
+    let paths = fs::read_dir("./assets/images/").unwrap();
+
+    let mut font_names: Vec<FontInfo> = Vec::new();
+    for path in paths {
+        let font_name = path.unwrap().file_name();
+        if let Ok(font) = font_name.into_string() {
+            let formatted_name: Vec<&str> = font.split(".").collect();
+            font_names.push(FontInfo { size: formatted_name[1].to_string(), name: formatted_name[0].to_string()});
+        }
+    }
+    // font_names.sort_unstable();
+    font_names.sort_by(|a, b| a.name.cmp(&b.name));
+    println!("{:#?}", font_names);
+    commands.insert_resource(FontNames {names: font_names });
+}
+
 fn switch_font(keeb: Res<Input<KeyCode>>, mut position_q: Query<&mut CurrentFont>) {
-    if keeb.just_pressed(KeyCode::Space) {
-        if let Ok(mut position) = position_q.get_single_mut() {
-            if position.0 == MAX_FONT_POSITION {
+    if let Ok(mut position) = position_q.get_single_mut() {
+        if keeb.just_pressed(KeyCode::Space) {
+            if position.0 == FONTS_AMOUNT - 1 {
                 position.0 = 0;
                 return;
             }
             position.0 += 1;
         }
-    }
-    if keeb.just_pressed(KeyCode::Back) {
-        if let Ok(mut position) = position_q.get_single_mut() {
+        if keeb.just_pressed(KeyCode::Back) {
             if position.0 == 0 {
-                position.0 = MAX_FONT_POSITION;
+                position.0 = FONTS_AMOUNT - 1;
                 return;
             }
             position.0 -= 1;
@@ -81,8 +100,9 @@ fn update_font(
     mut commands: Commands,
     sprites: Res<SpriteAssets>,
     position_q: Query<&CurrentFont>,
-    terminal_q: Query<(Entity, &Terminal)>,
+    mut terminal_q: Query<(Entity, &mut Terminal)>,
     keeb: Res<Input<KeyCode>>,
+    fonts: Res<FontNames>,
 ) {
     if !keeb.any_just_pressed([KeyCode::Back, KeyCode::Space, KeyCode::F5]) {
         return;
@@ -93,43 +113,54 @@ fn update_font(
             return;
         }
     };
-    let terminal = match terminal_q.get_single() {
+    let mut terminal = match terminal_q.get_single_mut() {
         Ok(t) => t,
         Err(_) => {
             panic!("More than one terminal or zero");
         }
     };
+    terminal.1.clear();
+
+    let font_asset = match font_choice.0 {
+        x if x == 0 => sprites.acorn.clone(),
+        x if x == 1 => sprites.anikki.clone(),
+        x if x == 2 => sprites.cgathick.clone(),
+        x if x == 3 => sprites.cgathin.clone(),
+        x if x == 4 => sprites.cheepicus.clone(),
+        x if x == 5 => sprites.jdpage.clone(),
+        x if x == 6 => sprites.ln.clone(),
+        x if x == 7 => sprites.lordnightmare.clone(),
+        x if x == 8 => sprites.pastiche.clone(),
+        x if x == 9 => sprites.potash.clone(),
+        x if x == 10 => sprites.rde.clone(),
+        x if x == 11 => sprites.yayo.clone(),
+        x if x == 12 => sprites.zaratustra.clone(),
+        _ => sprites.acorn.clone(),
+    };
     commands
         .entity(terminal.0)
-        .insert(TerminalFont::Custom(sprites.acorn.clone()));
+        .insert(TerminalFont::Custom(font_asset));
 
-    match font_choice.0 {
-        x if x == 0 => {
-            commands
-                .entity(terminal.0)
-                .insert(TerminalFont::Custom(sprites.acorn.clone()));
-        }
-        x if x == 1 => {
-            commands
-                .entity(terminal.0)
-                .insert(TerminalFont::Custom(sprites.anikki.clone()));
-        }
-        x if x == 2 => {
-            commands
-                .entity(terminal.0)
-                .insert(TerminalFont::Custom(sprites.cgathin.clone()));
-        }
-        x if x == 3 => {
-            commands
-                .entity(terminal.0)
-                .insert(TerminalFont::Custom(sprites.cgathick.clone()));
-        }
-        _ => {
-            commands
-                .entity(terminal.0)
-                .insert(TerminalFont::Custom(sprites.cgathick.clone()));
-        }
-    };
+    terminal.1.put_string(
+        [0, 1].pivot(Pivot::TopLeft),
+        "Press [SPACEBAR]/[BACKSPACE] to page through fonts",
+    );
+    terminal
+        .1
+        .put_string([0, 2], format!("CurrentFont is {}", font_choice.0));
+    terminal.1.put_string(
+        [0, 7].pivot(Pivot::TopLeft),
+        "☺☻♥♦♣♠•◘○◙♂♀♪♫☼►◄↕‼¶§▬↨↑↓→←∟↔▲▼",
+    );
+    terminal.1.put_string(
+        [0, 9].pivot(Pivot::TopLeft),
+        "░▒▓│┤╡╢╖╕╣║╗╝╜╛┐└╒╓╫╪┘┌█▄▌▐▀αßΓπΣσµτΦΘΩδ∞",
+    );
+    terminal.1.put_string(
+        [0, 3], format!("Font Name: {}", fonts.names[font_choice.0 as usize].name)
+        );
+
+    terminal.1.put_string([5, 5], "☺".fg(Color::GREEN));
 }
 
 // Gets the state out of Game Loading once everything is finished

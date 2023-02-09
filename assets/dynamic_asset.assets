@@ -1,14 +1,41 @@
 ({
     "acorn": File (
-        path: "images/Acorn.png",
+        path: "images/Acorn.8x8.png",
     ),
     "anikki": File (
-        path: "images/Anikki.png",
+        path: "images/Anikki.8x8.png",
     ),
     "cgathick": File (
-        path: "images/CGAthick.png",
+        path: "images/CGAthick.8x8.png",
     ),
     "cgathin": File (
-        path: "images/CGAthin.png",
+        path: "images/CGAthin.8x8.png",
+    ),
+    "cheepicus": File (
+        path: "images/Cheepicus.8x8.png",
+    ),
+    "jdpage": File (
+        path: "images/Jdpage.8x8.png",
+    ),
+    "ln": File (
+        path: "images/LN.8x8.png",
+    ),
+    "nightmare": File (
+        path: "images/LordNightmare.6x6.png",
+    ),
+    "pastiche": File (
+        path: "images/Pastiche.8x8.png",
+    ),
+    "potash": File (
+        path: "images/Potash.8x8.png",
+    ),
+    "rde": File (
+        path: "images/RDE.8x8.png",
+    ),
+    "yayo": File (
+        path: "images/Yayo.8x8.png",
+    ),
+    "zaratustra": File (
+        path: "images/Zaratustra.8x8.png",
     ),
 })
