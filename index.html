@@ -12,7 +12,13 @@
     <body>
         <div class="game-container">
             <canvas id="bevy">
-                Javascript and support for canvas is required
+            <script src="build/web/roguelikefontviewer.js"></script>
+            <script>
+                window.addEventListener("load", async () => {
+                    await wasm_bindgen("./build/web/roguelikefontviewer_bg.wasm");
+                });
+            </script>
+            Javascript and support for canvas is required
             </canvas>
         </div>
     </body>
