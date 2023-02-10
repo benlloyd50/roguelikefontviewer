@@ -2,8 +2,20 @@
     "acorn": File (
         path: "images/Acorn.8x8.png",
     ),
+    "alloy": File (
+        path: "images/Alloy.12x12.png",
+    ),
     "anikki": File (
         path: "images/Anikki.8x8.png",
+    ),
+    "anikkisquare": File (
+        path: "images/AnikkiSquare.10x10.png",
+    ),
+    "buddy": File (
+        path: "images/Buddy.10x10.png",
+    ),
+    "buddygraphical": File (
+        path: "images/BuddyGraphical.10x10.png",
     ),
     "cgathick": File (
         path: "images/CGAthick.8x8.png",
@@ -11,11 +23,50 @@
     "cgathin": File (
         path: "images/CGAthin.8x8.png",
     ),
-    "cheepicus": File (
+    "cheepicus8": File (
         path: "images/Cheepicus.8x8.png",
+    ),
+    "cheepicus12": File (
+        path: "images/Cheepicus.12x12.png",
+    ),
+    "cheepicus14": File (
+        path: "images/Cheepicus.14x14.png",
+    ),
+    "cheepicus15": File (
+        path: "images/Cheepicus.15x15.png",
+    ),
+    "curses": File (
+        path: "images/Curses.9x9.png",
+    ),
+    "db": File (
+        path: "images/DB.12x12.png",
+    ),
+    "ddw": File (
+        path: "images/Ddw.10x10.png",
+    ),
+    "dullard": File (
+        path: "images/DullardExponent.12x12.png",
+    ),
+    "geti": File (
+        path: "images/Geti.6x6.png",
+    ),
+    "haberdash": File (
+        path: "images/Haberdash.12x12.png",
+    ),
+    "herrbdog7": File (
+        path: "images/Herrbdog.7x7.png",
+    ),
+    "herrbdog12": File (
+        path: "images/Herrbdog.12x12.png",
     ),
     "jdpage": File (
         path: "images/Jdpage.8x8.png",
+    ),
+    "kein": File (
+        path: "images/Kein.5x5.png",
+    ),
+    "kren": File (
+        path: "images/Kren.13x13.png",
     ),
     "ln": File (
         path: "images/LN.8x8.png",
@@ -23,19 +74,82 @@
     "nightmare": File (
         path: "images/LordNightmare.6x6.png",
     ),
+    "markvii": File (
+        path: "images/Markvii.12x12.png",
+    ),
+    "mkv": File (
+        path: "images/Mkv.6x6.png",
+    ),
+    "mkvsolid": File (
+        path: "images/MkvSolid.12x12.png",
+    ),
+    "nice": File (
+        path: "images/Nice.12x12.png",
+    ),
+    "nobbins": File (
+        path: "images/Nobbins.6x6.png",
+    ),
+    "nostalgia": File (
+        path: "images/Nostalgia.9x9.png",
+    ),
     "pastiche": File (
         path: "images/Pastiche.8x8.png",
     ),
-    "potash": File (
+    "paul": File (
+        path: "images/Paul.10x10.png",
+    ),
+    "potash8": File (
         path: "images/Potash.8x8.png",
+    ),
+    "potash10": File (
+        path: "images/Potash.10x10.png",
     ),
     "rde": File (
         path: "images/RDE.8x8.png",
     ),
-    "yayo": File (
+    "smoothwalls": File (
+        path: "images/SmoothWalls.9x9.png",
+    ),
+    "taffer": File (
+        path: "images/Taffer.10x10.png",
+    ),
+    "talryth": File (
+        path: "images/Talryth.15x15.png",
+    ),
+    "terbert7": File (
+        path: "images/Terbert.7x7.png",
+    ),
+    "terbert10": File (
+        path: "images/Terbert.10x10.png",
+    ),
+    "terminus": File (
+        path: "images/Terminus.11x11.png",
+    ),
+    "tilesetunknown": File (
+        path: "images/TilesetUnknown.12x12.png",
+    ),
+    "tocky": File (
+        path: "images/TockySquare.10x10.png",
+    ),
+    "unknown": File (
+        path: "images/Unknown.12x12.png",
+    ),
+    "vidumec": File (
+        path: "images/Vidumec.15x15.png",
+    ),
+    "yayo8": File (
         path: "images/Yayo.8x8.png",
     ),
-    "zaratustra": File (
+    "yayo13": File (
+        path: "images/Yayo.13x13.png",
+    ),
+    "zaratustra5": File (
+        path: "images/Zaratustra.5x5.png",
+    ),
+    "zaratustra8": File (
         path: "images/Zaratustra.8x8.png",
+    ),
+    "zesty": File (
+        path: "images/Zesty.12x12.png",
     ),
 })
