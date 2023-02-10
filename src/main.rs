@@ -96,6 +96,14 @@ fn render_screen(
     );
     terminal.put_string([0, 2], format!("CurrentFont is {}", font_choice.0));
     terminal.put_string(
+        [0, 3].pivot(Pivot::TopLeft),
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    );
+    terminal.put_string(
+        [0, 5].pivot(Pivot::TopLeft),
+        "abcdefghijklmnopqrstuvwxyz",
+    );
+    terminal.put_string(
         [0, 7].pivot(Pivot::TopLeft),
         "☺☻♥♦♣♠•◘○◙♂♀♪♫☼►◄↕‼¶§▬↨↑↓→←∟↔▲▼",
     );

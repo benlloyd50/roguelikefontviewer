@@ -6,10 +6,10 @@ Preview fonts to see what they could look like in your game. Currently contains 
 
 # features
 - preview glyphs
+- alphabet preview
 
 # coming soon
 - room preview
-- alphabet preview
 - random generation to really get a feel
 
 # contributing
